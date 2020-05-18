@@ -1,0 +1,17 @@
+FROM ubuntu
+
+ENV java jdk-8u221-linux-x64.tar.gz
+ENV jdk jdk1.8.0_221
+
+ADD   ./${java}    /usr/local/java/
+ENV JAVA_HOME /usr/local/java/${jdk}
+ENV CLASSPATH $JAVA_HOME/lib;$JAVA_HOME/jre/lib
+ENV PATH $PATH:$JAVA_HOME/bin
+ENV tomcat apache-tomcat-9.0.26.tar.gz
+ENV tomcat_path apache-tomcat-9.0.26
+ADD ${tomcat}  /usr/local/tomcat/
+ENV CATALINA_HOME /usr/local/tomcat/${tomcat_path}/
+ENV CATALINA_BASE $CATALINA_HOME
+ENV PATH $PATH:$CATALINA_HOME/lib:$CATALINA_HOME/bin
+EXPOSE 8080
+CMD ["catalina.sh", "run"]
